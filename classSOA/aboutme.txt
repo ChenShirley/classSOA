@@ -1,0 +1,13 @@
+Name: Shirley Chen
+Nickname: Shirley
+
+Department: ISS
+Track: Information Management
+
+Programming background:
+- PHP/ASP/Ruby
+- MySQL
+
+Work Experience:
+- Internship at huashan 1914 creative park
+- Web developer for cocreation

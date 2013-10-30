@@ -1,0 +1,86 @@
+classSOA-Journal (for rails)
+
+------------Ruby on Rails note------------
+
+bundle install
+
+# to start the server
+rails s == rails server -p 3001 #change port to 3001
+
+# like irb, for sqlite command
+rails c == rails console
+
+# list all url (already match all controller action) we can use for routes.rb
+rake routes
+
+    movies    GET    /movies(.:format)          movies#index
+    movies    POST   /movies(.:format)          movies#create
+ new_movie    GET    /movies/new(.:format)      movies#new
+edit_movie(m) GET    /movies/:id/edit(.:format) movies#edit
+     movie(m) GET    /movies/:id(.:format)      movies#show
+     movie(m) PUT    /movies/:id(.:format)      movies#update
+     movie(m) DELETE /movies/:id(.:format)      movies#destroy
+      root           /                          :controller#:action
+
+# create table by running its up method 
+rake db:migrate == bundle exec rake db:migrate
+
+# undo last migration by running its down method 
+rake db:rollback == bundle exec rake db:rollback STEP=1
+
+# create all records which already type in seed.rb
+rake db:seed
+
+rails generate migration create_moveis
+
+
+
+
+------------Active Record------------
+find_by_attribute
+find_all_by_attribute
+find_by_attribute1_and_attribute2 (with two paramters)
+
+
+
+
+------------sqlite command in rails console------------
+####  Create
+starwars = Movie.create!(:title => 'Star Wars',
+  :release_date => '25/4/1977', :rating => 'PG')
+
+# note that numerical dates follow European format: dd/mm/yyyy
+requiem =  Movie.create!(:title => 'Requiem for a Dream',
+  :release_date => 'Oct 27, 2000', :rating => 'R')
+
+#  Creation using separate 'save' method, used when updating existing records
+field = Movie.new(:title => 'Field of Dreams',
+  :release_date => '21-Apr-89', :rating => 'PG')
+field.save!
+field.title = 'New Field of Dreams'
+
+####  Read
+pg_movies = Movie.where("rating = 'PG'")
+ancient_movies = Movie.where('release_date < :cutoff and rating = :rating',
+  :cutoff => 'Jan 1, 2000', :rating => 'PG')
+
+pg_movies_2 = Movie.find_by_rating('PG')
+Movie.find(3)  # exception if key not found; find_by_id returns nil instead
+
+####  Update
+starwars.update_attributes(:description => 'The best space western EVER',
+  :release_date => '25/5/1977')
+
+requiem.rating = 'NC-17'
+
+requiem.save!
+
+####  Delete
+requiem.destroy
+
+Movie.where('title = "Requiem for a Dream"')
+
+####  Find returns an enumerable
+Movie.find_all_by_rating('PG').each do |mov|
+  mov.destroy
+end

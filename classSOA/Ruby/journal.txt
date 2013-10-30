@@ -1,0 +1,170 @@
+classSOA-Journal (for Linux, tryRuby, RoR)
+
+------------Linux command note------------
+# list all file&folder (including which is hidden)
+ls -a
+
+# color file&folder to distinguish them (but seems not permanent)
+ls --color
+
+# a command helper. list all param of XXX (a command)
+man XXX
+
+# rm for remove files
+rm -rf .git
+
+# copy from A to B
+cp A-path Bpath
+
+# num is number. to list a file's top/bottom N line on screen
+head -num file-path
+tail -num file-path
+
+# print all file content o screen (-n: also print the line number)
+cat -n file-path
+
+# upload (-r: with all folder)
+scp -r file-path username@IP:path
+
+# download
+scp -r username@IP:file-path my-path
+
+# 100% copy from github, it'll store in a new folder
+git clone web-address new-foldername
+
+# copy from github, all file&folder without store in a new folder
+git pull web-address
+
+
+
+
+------------tryRuby note------------
+# + is one method for integer 
+2 + 6  ==  2.+6
+
+# reverse is for string
+"Amy".reverse  -->  ymA
+
+# transform type
+to_s converts to strings
+to_i converts to integers
+to_a converts to arrays
+
+# find Max / min from an array  or  sort an array
+[num1, num2, num3].max
+[num2, num1, num3].sort  -->  [num1, num2, num3] (output is also array)
+
+# decides the way string is split up
+string_variable.lines
+string_variable.bytes
+string_variable.chars
+
+#def of class & accessor & instance variable
+Class
+	Class explain object (what an object work, in class may be many def...end, the def is for action)
+Accessor
+	object variables which can be used outside the object (ex.entry.time = Time.now)
+Instance variable
+	variable using for accessors when inside the object. Like in a method definition. (@time = Time.now)
+
+# time method
+Time.now - 2.weeks (days & hours & minutes & seconds , not work for years)
+
+# little note for use
+search keyword (cadillac) (need to figure out what it does)
+		blog.find_all { |entry| entry.fulltext.match(/cadillac/i) }
+sort_by
+		blog.sort_by { |entry| entry.time }.reverse
+
+
+
+
+------------Ruby on Rails note------------
+# set default value in migration file (need not to set in app/model)
+t.integer :attribute_name, :default => 0
+
+# enable to delete follow related table
+has_many :tables, :dependent => :destroy
+
+# enable nested form & enable remove function (with nested_form.js)
+accepts_nested_attributes_for :tables, :allow_destroy => true
+
+# order by attribute (must order first and then where)
+Table.order("attribute ASC").where(:id=>@id)
+
+# find & where
+find --> variable
+	ex.@set = Table.find(params[:id]) --> use @set.id
+where --> array
+	ex.@set = Table.where(:id=>params[:id]) --> use @set[0].id
+
+#
+nums = [2, 3 ,3, 5]
+nums.delete_at(0) --> delete [2]
+nums.delete(3) --> delete all 3 in []
+nums.select{ |i| > 4 } --> puts [5]
+nums.map{ |i| > 4 } --> puts [false,false,false,true]
+nums.map{ |i| i*2 } --> puts [4, 6 ,6, 10]
+nums.reduce(:+) --> puts 13
+nums.reduce{ | a, b | a.to_s + "/" + b.to_s } --> puts 2/3/3/5
+nums.each { |a| print a, ";"} --> 2;3;3;5
+
+#
+num = {"a"=>:aa, "b"=>:bb}
+num.keys --> ["a", "b"]
+num.values --> [:aa, :bb
+num_array = num.to_a
+num_array[0] --> ["a", :aa]
+num_array[1][1] --> :bb
+num_array.map{ |i| puts #{num[0]} got #{num[1]} }  ???
+
+
+
+
+Journal for Template Views
+
+---------------- Ruby ----------------
+
+<% %>	not print, bu with </br>
+
+<%= %>	print
+
+<%- -%>	not print, without </br>
+
+<%# %>	註解
+
+多行註解
+<%- output = false -%>
+<% if output %>
+    <%= foo %>
+    <hr>
+    <%= bar %>
+<% end %>
+
+
+---------------- Haml ----------------
+Principle*5
+1.以空白隔開
+2.記得縮排來表現結構
+3.%開頭的字為 HTML tag
+4.不用寫 close tag
+5.用 hash 的方式來指定 tag 的 attribute
+
+Example
+
+Html	<h1>Hello, <%= @name %></h1>
+Haml	%h1 = "Hello, #{@name}"
+
+Html
+		[code lang="xml"]
+		<% @user.items.each do |item| -%>
+		<%= item.name %>
+		<% end -%>
+		[/code]
+Haml
+		[code lang="ruby"]
+		%ul{:id => "list", :class => "list"}
+		- @user.items.each do |item|
+		%li = item.name
+		[/code]
+
