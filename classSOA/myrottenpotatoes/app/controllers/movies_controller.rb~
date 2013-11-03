@@ -1,10 +1,7 @@
 class MoviesController < ApplicationController
-<<<<<<< HEAD
 
-	before_filter :authenticate_moviegoer!
+	#before_filter :authenticate_moviegoer!
 
-=======
->>>>>>> 360a2443b950b7aae36f79b6b9ed4567aea3232f
   def index
     @movies = Movie.all
   end
@@ -49,8 +46,6 @@ class MoviesController < ApplicationController
 		flash[:notice] = "Movie '#{@movie.title}' deleted."
 		redirect_to movies_path
 	end
-<<<<<<< HEAD
-
 
   def movies_with_filters
     @movies = Movie.with_good_reviews(params[:threshold])
@@ -66,6 +61,10 @@ class MoviesController < ApplicationController
   #  end
   #end
 
-=======
->>>>>>> 360a2443b950b7aae36f79b6b9ed4567aea3232f
+	def search_tmdb
+		# hardwire to simulate failure
+		flash[:warning] = "'#{params[:search_terms]}' was not found in TMDb."
+		flash[:notice] = "'#{params[:search_terms]}' was found in TMDb."
+		redirect_to movies_path
+	end
 end

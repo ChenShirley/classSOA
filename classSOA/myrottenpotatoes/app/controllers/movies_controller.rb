@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
 
-	before_filter :authenticate_moviegoer!
+	#before_filter :authenticate_moviegoer!
 
   def index
     @movies = Movie.all
@@ -60,4 +60,10 @@ class MoviesController < ApplicationController
   #    @movies = @movies.send(filter) if params[filter]
   #  end
   #end
+
+	def search_tmdb
+		# hardwire to simulate failure
+		flash[:warning] = "'#{params[:search_terms]}' was not found in TMDb."
+		redirect_to movies_path
+	end
 end

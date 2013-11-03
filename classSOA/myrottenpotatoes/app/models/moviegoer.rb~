@@ -1,6 +1,4 @@
 class Moviegoer < ActiveRecord::Base
-<<<<<<< HEAD
-
   has_many :reviews
   has_many :movies, :through => :reviews
 
@@ -34,13 +32,4 @@ class Moviegoer < ActiveRecord::Base
     end
   end
 
-=======
-  attr_protected :uid, :provider, :name # see text for explanation
-  def self.create_with_omniauth(auth)
-    Moviegoer.create!(
-      :provider => auth["provider"],
-      :uid => auth["uid"],
-      :name => auth["info"]["name"])
-  end
->>>>>>> 360a2443b950b7aae36f79b6b9ed4567aea3232f
 end

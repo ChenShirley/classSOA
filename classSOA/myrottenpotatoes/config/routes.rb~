@@ -3,7 +3,6 @@ Myrottenpotatoes::Application.routes.draw do
 
 	root :to => redirect('/movies')
 
-	post '/movies/search_tmdb'
 	resources :movies do
 		resources :reviews
 	end
