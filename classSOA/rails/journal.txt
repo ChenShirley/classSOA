@@ -2,44 +2,118 @@ classSOA-Journal (for rails)
 
 ------------Ruby on Rails note------------
 
-bundle install
+	bundle install
 
 # to start the server
-rails s == rails server -p 3001 #change port to 3001
+	rails s == rails server -p 3001 #change port to 3001
 
 # like irb, for sqlite command
-rails c == rails console
+	rails c == rails console		# rails c test		to run BDD feature's test db
 
 # list all url (already match all controller action) we can use for routes.rb
-rake routes
+	rake routes
 
-    movies    GET    /movies(.:format)          movies#index
-    movies    POST   /movies(.:format)          movies#create
- new_movie    GET    /movies/new(.:format)      movies#new
-edit_movie(m) GET    /movies/:id/edit(.:format) movies#edit
-     movie(m) GET    /movies/:id(.:format)      movies#show
-     movie(m) PUT    /movies/:id(.:format)      movies#update
-     movie(m) DELETE /movies/:id(.:format)      movies#destroy
-      root           /                          :controller#:action
+		  movies    GET    /movies(.:format)          movies#index
+		  movies    POST   /movies(.:format)          movies#create
+	 new_movie    GET    /movies/new(.:format)      movies#new
+	edit_movie(m) GET    /movies/:id/edit(.:format) movies#edit
+		   movie(m) GET    /movies/:id(.:format)      movies#show
+		   movie(m) PUT    /movies/:id(.:format)      movies#update
+		   movie(m) DELETE /movies/:id(.:format)      movies#destroy
+		    root           /                          :controller#:action
 
 # create table by running its up method 
-rake db:migrate == bundle exec rake db:migrate
+	rake db:migrate == bundle exec rake db:migrate
 
 # undo last migration by running its down method 
-rake db:rollback == bundle exec rake db:rollback STEP=1
+	rake db:rollback == bundle exec rake db:rollback STEP=1
 
 # create all records which already type in seed.rb
-rake db:seed
+	rake db:seed
 
-rails generate migration create_moveis
+	rails generate migration create_moveis
 
 
 
 
 ------------Active Record------------
-find_by_attribute
-find_all_by_attribute
-find_by_attribute1_and_attribute2 (with two paramters)
+	find_by_attribute
+	find_all_by_attribute
+	find_by_attribute1_and_attribute2 (with two paramters)
+
+difference between attr_accessor & attr_accessible ???
+
+
+
+
+------------cucumber(for feature) note------------
+# when got error "Ambiguous match, found 2 elements matching xpath "/html" (Capybara::Ambiguous)", check views/layouts/application.rb
+
+	  %body
+    - if moviegoer_signed_in?
+      = link_to 'logout', destroy_moviegoer_session_path, :method => 'delete'
+    - else
+      = link_to 'login', new_moviegoer_session_path 
+
+    -# this goes just inside %body:
+    - if flash[:notice]
+      #notice.message= flash[:notice]
+    - elsif flash[:warning]
+      #warning.message= flash[:warning]
+    = yield
+
+
+
+
+------------github note------------
+# 100% copy from github, it'll store in a new folder
+	git clone web-address new-foldername
+
+# copy from github, all file&folder without store in a new folder
+	git pull web-address
+
+# check remote setting
+	git remote -v
+
+
+
+
+------------Heroku note------------
+# install heroku gem (edit gemfile)
+  gem 'heroku'
+ 
+  group :development, :test do
+     gem 'debugger'
+     gem 'sqlite3' # use SQLite only in development and testing		# delete original gem 'sqlite3'
+  end
+  group :production do
+     gem 'pg' # use PostgreSQL in production (Heroku)
+  end
+ 
+# Run bundle install to install the gem
+  bundle install
+ 
+# Create an heroku app name classsoa to deploy my app
+   heroku create classsoa --stack cedar
+ 
+# If got error "Precompiling assets failed.",	edit config/application.rb
+   config.assets.initialize_on_precompile = false
+  
+# push app to heroku in app directory
+  git init
+  git add .		# heroku will check whether there is a file name Gemfile to know this is a ruby app 
+  git commit -m “heroku”
+  git remote add heroku git@heroku.com:classsoa.git
+  git push heroku master
+ 
+# do the migration inheroku
+  heroku run:detached rake db:migrate		# run:detached is to run it background
+ 
+# Set heroku environment variable
+heroku config:set APP_ID="your APP_ID" APP_SECRET="your APP_SECRET "
+
+# check heroku environment variable
+	heroku config
 
 
 

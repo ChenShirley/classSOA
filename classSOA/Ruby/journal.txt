@@ -1,41 +1,42 @@
-classSOA-Journal (for Linux, tryRuby, RoR)
+classSOA-Journal (for Linux, github, tryRuby, RoR)
 
 ------------Linux command note------------
 # list all file&folder (including which is hidden)
-ls -a
+	ls -a
+	ls -al
 
 # color file&folder to distinguish them (but seems not permanent)
-ls --color
+	ls --color
 
 # a command helper. list all param of XXX (a command)
-man XXX
+	man XXX
 
 # rm for remove files
-rm -rf .git
+	rm -rf .git
 
 # copy from A to B
-cp A-path Bpath
+	cp A-path B-path
 
 # num is number. to list a file's top/bottom N line on screen
-head -num file-path
-tail -num file-path
+	head -num file-path
+	tail -num file-path
 
 # print all file content o screen (-n: also print the line number)
-cat -n file-path
+	cat -n file-path
 
 # upload (-r: with all folder)
-scp -r file-path username@IP:path
+	scp -r file-path username@IP:path
 
 # download
-scp -r username@IP:file-path my-path
-
-# 100% copy from github, it'll store in a new folder
-git clone web-address new-foldername
-
-# copy from github, all file&folder without store in a new folder
-git pull web-address
+	scp -r username@IP:file-path my-path
 
 
+# Set localhost environment variable. In root path (saasbook@saasbook:/)
+	cd etc
+	sudo vi environment	# add what ENV and it's value(ex.APP_ID="your APP_ID")
+
+# check environment variable
+	echo $APP_ID
 
 
 ------------tryRuby note------------
@@ -75,8 +76,6 @@ search keyword (cadillac) (need to figure out what it does)
 		blog.find_all { |entry| entry.fulltext.match(/cadillac/i) }
 sort_by
 		blog.sort_by { |entry| entry.time }.reverse
-
-
 
 
 ------------Ruby on Rails note------------
@@ -121,15 +120,15 @@ num_array.map{ |i| puts #{num[0]} got #{num[1]} }  ???
 
 
 
-Journal for Template Views
+# Journal for Template Views
 
 ---------------- Ruby ----------------
 
-<% %>	not print, bu with </br>
+<% %>	not print, but with</br>
 
 <%= %>	print
 
-<%- -%>	not print, without </br>
+<%- -%>	not print, without</br>
 
 <%# %>	註解
 
@@ -143,14 +142,15 @@ Journal for Template Views
 
 
 ---------------- Haml ----------------
-Principle*5
+Principle*6
 1.以空白隔開
 2.記得縮排來表現結構
 3.%開頭的字為 HTML tag
 4.不用寫 close tag
 5.用 hash 的方式來指定 tag 的 attribute
+6.senstive to space & tab (make sure every line with correct number of spaces)
 
-Example
+Example:
 
 Html	<h1>Hello, <%= @name %></h1>
 Haml	%h1 = "Hello, #{@name}"
@@ -167,4 +167,3 @@ Haml
 		- @user.items.each do |item|
 		%li = item.name
 		[/code]
-
